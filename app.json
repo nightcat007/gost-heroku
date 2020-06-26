@@ -5,7 +5,7 @@
   "env": {
      "WSPATH": {
        "description": "The web path for WebSocket Processing. Value:/pathstr",
-       "value": "/catpxy"
+       "value": "/proxy"
      },
     "READBUFFSIZE": {
        "description": "Read Buffer Byte Size for the WebSocket. Value:integer",
