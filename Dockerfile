@@ -1,14 +1,16 @@
 FROM alpine:3.6
 
-ENV VER=2.11.0 METHOD=chacha20 PASSWORD=ss123456
-ENV TLS_PORT=4433 PORT=8080
+ENV VER=2.11.0 WSPATH=/catpxy READBUFFSIZE=8192 WRITEBUFFSIZE=8192 WSCOMPR=false
 
-RUN apk add --no-cache curl \
-  && curl -sL https://github.com/xiaokaixuan/gost-heroku/releases/download/v${VER}/gost_${VER}_linux_amd64.tar.gz | tar zx \
-  && mv gost_${VER}_linux_amd64 gost && chmod a+x gost/gost
+RUN apk add --no-cache
+  rm -Rf gost && \
+	rm -Rf gost.tar.gz && \
+	curl -vvvo gost.tar.gz https://github.com/xiaokaixuan/gost-heroku/releases/download/v${VER}/gost_${VER}_linux_amd64.tar.gz && \
+	tar xzvf gost.tar.gz && \
+	mv gost_${VER}_linux_amd64 gost && \
+	chmod a+x gost && \
+	rm -Rf gost.tar.gz
 
-WORKDIR /gost
-EXPOSE ${TLS_PORT} $PORT
+WORKDIR /
 
-CMD exec /gost/gost -L=tls://:${TLS_PORT}/:$PORT -L=ss+mws://$METHOD:$PASSWORD@:$PORT
-
+CMD exec /gost -L="quic+ws://:$PORT?path=$WSPATH&rbuf=$READBUFFSIZE&wbuf=$WRITEBUFFSIZE&compression=$WSCOMPR"

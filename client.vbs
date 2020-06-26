@@ -1,5 +1,5 @@
-Const Title = "Gost", errorLog = "client.log"
-Const CommandLine = "gost.exe -L=:1080 -F=ss+mwss://chacha20:ss123456@appname.herokuapp.com:443"
+Const Title = "Gost", errorLog = "gost-heroku.log"
+Const CommandLine = "gost.exe -L=:1080 -F=quic+wss://appname.herokuapp.com:443?path=/pathstr"
 
 Class Application
 	Private WS
@@ -65,4 +65,3 @@ Set App = new Application
 App.HideExecute
 App.CheckRunning
 App.RunCommand
-
