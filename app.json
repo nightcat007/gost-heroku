@@ -18,7 +18,7 @@
     "WSCOMPR": {
        "description": "Enable/Disable the compression of the WebSocket. Value:true/false",
        "value": "false"
-     },
+     }
   },
   "stack": "container",
   "website": "https://github.com/nightcat007/gost-heroku",
